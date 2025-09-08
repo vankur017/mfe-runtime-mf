@@ -9,13 +9,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "start:host": "cd apps/mfe-host && npm run start",
+    "start:auth": "cd packages/auth-app && npm run start"
+  }, 
 
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "zustand": "^5.0.8"
+  "react": "18.3.1",
+  "react-dom": "18.3.1",
+  "zustand": "^5.0.8"
   }
 }

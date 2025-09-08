@@ -3,6 +3,7 @@ import { Link, Route, Routes, Navigate } from "react-router-dom";
 import { useSessionStore } from "@mfeshared/store";
 import { ensureRemote } from "./mf/loadRemote";
 import type { RemoteManifest } from "./mf/types";
+import { log } from "console";
 
 // Fallback UI
 const Fallback = ({ msg }: { msg: string }) => (
@@ -38,6 +39,7 @@ export default function App() {
         for (const [scope, url] of Object.entries(map)) {
           try {
             const getManifest = await ensureRemote<any>(scope as string, url as string, "./manifest");
+            console.log("Got manifest for", scope, getManifest);
             loaded.push(await getManifest());
           } catch (e) {
             console.warn(`Failed to load manifest for ${scope}`, e);

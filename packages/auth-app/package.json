@@ -2,24 +2,29 @@
   "name": "auth-app",
   "version": "1.0.0",
   "private": true,
-  "jsx" : "react-jsx",
+  "jsx": "react",
   "main": "src/index.tsx",
   "scripts": {
-    "start": "webpack serve --config webpack.config.js --env development",
-    "build": "webpack --config webpack.config.js --env production"
+    "start": "webpack serve --config webpack.config.js --port 3001 --env development"
   },
   "dependencies": {
+    "@mfeshared/store": "file:../mfeshared/store",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.22.3",
-    "@mfeshared/store": "file:../mfeshared/store"
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "typescript": "^5.4.5",
-    "ts-loader": "^9.5.1",
-    "webpack": "^5.91.0",
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "babel-loader": "^10.0.0",
+    "html-webpack-plugin": "^5.6.4",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.2",
+    "webpack": "^5.101.3",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1",
-    "html-webpack-plugin": "^5.6.0"
+    "webpack-dev-server": "^4.15.2"
   }
 }
