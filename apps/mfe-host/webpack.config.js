@@ -61,8 +61,8 @@ module.exports = {
       shared: {
         react: { singleton: true, requiredVersion: false, eager: true },
         "react-dom": { singleton: true, requiredVersion: false, eager: true },
-        zustand: { singleton: true, requiredVersion: false, eager: false },
-        "@mfeshared/store": { singleton: true, requiredVersion: false, eager: false }
+        zustand: { singleton: true, requiredVersion: false, eager: true },
+        "@mfeshared/store": { singleton: true, requiredVersion: false, eager: true }
       }
     }),
     new HtmlWebpackPlugin({ template: "./public/index.html" }),

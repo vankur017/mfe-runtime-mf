@@ -1,4 +1,4 @@
-import create from "zustand";
+import {create} from "zustand";
 
 export type Role = "User" | "Admin";
 
@@ -21,4 +21,5 @@ export const useSessionStore = create<SessionState>((set, get) => ({
   hasRole: (r) => !!get().user?.roles.includes(r),
 }));
 
+export const testStore = "shared-store-ok";
 
