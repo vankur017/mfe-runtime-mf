@@ -16,7 +16,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.[jt]sx?$/,
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
         include: [
           path.resolve(__dirname, "src"),                     // auth-app source
           path.resolve(__dirname, "../mfeshared/store/src"),  // mfeshared package
@@ -29,6 +30,10 @@ module.exports = {
           },
         },
       },
+      {
+      test: /\.css$/,  
+      use: ["style-loader", "css-loader"]
+     }
     ],
   },
   plugins: [
@@ -41,9 +46,10 @@ module.exports = {
         "./manifest": "./src/remote/manifest"
       },
       shared: {
-        react: { singleton: true },
-        "react-dom": { singleton: true },
-        "@mfeshared/store": { singleton: true }
+       react: { singleton: true, requiredVersion: "18.3.1", eager: true },
+        "react-dom": { singleton: true, requiredVersion: "18.3.1", eager: true },
+        zustand: { singleton: true, requiredVersion: "5.0.8", eager: true },
+        "@mfeshared/store": { singleton: true, requiredVersion: false, eager: true }
       }
     }),
     new HtmlWebpackPlugin({

@@ -49,9 +49,14 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+    {
+      test: /\.css$/,  // <-- add this block
+      use: ["style-loader", "css-loader"]
+    }
     ]
   },
+  
 
   plugins: [
     new ModuleFederationPlugin({
@@ -59,9 +64,9 @@ module.exports = {
       filename: "remoteEntry.js", // optional for host
       remotes: {}, // dynamic remotes loaded at runtime
       shared: {
-        react: { singleton: true, requiredVersion: false, eager: true },
-        "react-dom": { singleton: true, requiredVersion: false, eager: true },
-        zustand: { singleton: true, requiredVersion: false, eager: true },
+        react: { singleton: true, requiredVersion: "18.3.1", eager: true },
+        "react-dom": { singleton: true, requiredVersion: "18.3.1", eager: true },
+        zustand: { singleton: true, requiredVersion: "5.0.8", eager: true },
         "@mfeshared/store": { singleton: true, requiredVersion: false, eager: true }
       }
     }),

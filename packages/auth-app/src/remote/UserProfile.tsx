@@ -8,12 +8,12 @@ export default function UserProfile() {
   if (!user) return <div className="p-4">Not logged in</div>;
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow rounded">
-      <h2 className="text-xl font-bold mb-4">User Profile</h2>
+    <div className="user-profile-container">
+      <h2 className="user-profile-heading">User Profile</h2>
       <p><strong>Name:</strong> {user.name}</p>
       <p><strong>Roles:</strong> {user.roles.join(", ")}</p>
       <button
-        className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        className="btn btn-danger"
         onClick={() => setUser(null)}
       >
         Logout

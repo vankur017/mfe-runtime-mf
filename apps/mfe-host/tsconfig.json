@@ -1,12 +1,25 @@
+// apps/mfe-host/tsconfig.json
 {
   "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@mfeshared/store": ["../../packages/mfeshared/store/src"]
+    "baseUrl": ".", // Add this
+    "paths": { // Add this
+      "@mfeshared/store": ["../mfeshared/store/src/index.ts"]
     }
   },
-  "include": ["src", "src/remote-types.d.ts"]
+  "include": ["src"]
 }

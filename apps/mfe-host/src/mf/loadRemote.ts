@@ -31,10 +31,15 @@ function loadRemoteEntry(scope: string, url: string) {
 export async function loadModule<T = any>(scope: string, module: string): Promise<T> {
   // @ts-ignore
   const container = window[scope];
+  // container.get(module) returns a promise that resolves to the factory function
   // @ts-ignore
   const factory = await container.get(module);
-  return factory().then((mod: any) => mod.default || mod);
-
+  
+  // The factory function itself returns a promise that resolves to the module
+  // We need to await the result of the factory call.
+  const mod = await factory();
+  
+  return mod.default || mod;
 }
 
 

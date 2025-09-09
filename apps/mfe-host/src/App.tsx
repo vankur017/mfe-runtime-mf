@@ -3,17 +3,13 @@ import { Link, Route, Routes, Navigate } from "react-router-dom";
 import { useSessionStore } from "@mfeshared/store";
 import { ensureRemote } from "./mf/loadRemote";
 import type { RemoteManifest } from "./mf/types";
-import { log } from "console";
 
 // Fallback UI
 const Fallback = ({ msg }: { msg: string }) => (
-  <>
-     <div style={{ padding: 16 }}>
+  <div className="fallback-container" style={{ padding: 16 }}>
     <h3>{msg}</h3>
     <p>Please try again later.</p>
   </div>
-  </>
- 
 );
 
 // Role-based protection
@@ -36,15 +32,23 @@ export default function App() {
         setRegistry(map);
 
         const loaded: RemoteManifest[] = [];
-        for (const [scope, url] of Object.entries(map)) {
-          try {
-            const getManifest = await ensureRemote<any>(scope as string, url as string, "./manifest");
-            console.log("Got manifest for", scope, getManifest);
-            loaded.push(await getManifest());
-          } catch (e) {
-            console.warn(`Failed to load manifest for ${scope}`, e);
-          }
-        }
+       for (const [scope, url] of Object.entries(map)) {
+  console.log("Loading manifest for", scope, url);
+
+  try {
+    const getManifest = await ensureRemote<any>(scope, url as string, "./manifest");
+    console.log("Got manifest for", scope, getManifest);
+    const manifest = await getManifest();
+    if (!manifest || !manifest.routes) {
+      console.warn(`No valid manifest found for ${scope}`);
+      continue;
+    }
+    loaded.push(manifest);
+  } catch (e) {
+    console.warn(`Failed to load manifest for ${scope}`, e);
+  }
+}
+
         setManifests(loaded);
       } catch (e) {
         console.error("Failed to load registry", e);
@@ -52,9 +56,11 @@ export default function App() {
     })();
   }, []);
 
+  console.log(manifests, "manifests");
+
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "220px 1fr", minHeight: "100vh" }}>
-      <aside style={{ borderRight: "1px solid #eee", padding: 16 }}>
+    <div className="app-container" style={{ display: "grid", gridTemplateColumns: "220px 1fr", minHeight: "100vh" }}>
+      <aside className="sidebar" style={{ borderRight: "1px solid #eee", padding: 16 }}>
         <h2>Host</h2>
         <nav>
           <ul>
@@ -110,6 +116,6 @@ function RemoteElement({ elementKey, registry }: { elementKey: string; registry:
   }, [elementKey, registry]);
 
   if (error) return <Fallback msg={`Module is currently unavailable: ${error}`} />;
-  if (!Comp) return <div>Loading module…</div>;
+  if (!Comp) return <div className="loading-indicator">Loading module…</div>;
   return <Comp />;
 }
