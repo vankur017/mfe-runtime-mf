@@ -3,6 +3,7 @@ import { Link, Route, Routes, Navigate } from "react-router-dom";
 import { useSessionStore } from "@mfeshared/store";
 import { ensureRemote } from "./mf/loadRemote";
 import type { RemoteManifest } from "./mf/types";
+import ErrorBoundary from "./mf/ErrorBoundary";
 
 // Fallback UI
 const Fallback = ({ msg }: { msg: string }) => (
@@ -59,7 +60,7 @@ export default function App() {
   console.log(manifests, "manifests");
 
   return (
-    <div className="app-container" style={{ display: "grid", gridTemplateColumns: "220px 1fr", minHeight: "100vh" }}>
+  <div className="app-container" style={{ display: "grid", gridTemplateColumns: "220px 1fr", minHeight: "100vh" }}>
       <aside className="sidebar" style={{ borderRight: "1px solid #eee", padding: 16 }}>
         <h2>Host</h2>
         <nav>
@@ -80,7 +81,10 @@ export default function App() {
               path={r.path}
               element={
                 <Protected roles={r.requiredRoles}>
-                  <RemoteElement elementKey={r.elementKey} registry={registry} />
+                  {/* ✅ Wrap the remote component with the error boundary */}
+                  <ErrorBoundary fallback={<Fallback msg="An unexpected error occurred in the module." />} >
+                    <RemoteElement elementKey={r.elementKey} registry={registry} />
+                  </ErrorBoundary>
                 </Protected>
               }
             />

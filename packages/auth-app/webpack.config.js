@@ -45,12 +45,13 @@ module.exports = {
         "./UserProfile": "./src/remote/UserProfile",
         "./manifest": "./src/remote/manifest"
       },
-      shared: {
-       react: { singleton: true, requiredVersion: "18.3.1", eager: true },
-        "react-dom": { singleton: true, requiredVersion: "18.3.1", eager: true },
-        zustand: { singleton: true, requiredVersion: "5.0.8", eager: true },
+         shared: {
+        react: { singleton: true, requiredVersion: false, eager: true },
+        "react-dom": { singleton: true, requiredVersion: false, eager: true },
+        zustand: { singleton: true, requiredVersion: false, eager: true },
+        "react-router-dom": { singleton: true, requiredVersion: false, eager: true },
         "@mfeshared/store": { singleton: true, requiredVersion: false, eager: true }
-      }
+    }
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html"

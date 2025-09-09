@@ -1,29 +1,24 @@
 import React, { useState } from "react";
-import { useSessionStore } from "@mfeshared/store";
-
-// Assuming Role is a union type like: type Role = "User" | "Admin";
-type Role = "User" | "Admin";
+import { useNavigate } from "react-router-dom"; // <-- Import useNavigate
+import { useSessionStore, Role } from "@mfeshared/store";
 
 export default function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState<Role>("User");
   const setUser = useSessionStore(s => s.setUser);
+  const navigate = useNavigate(); // <-- Initialize the hook
 
   const login = () => {
-    // Correct: Wrap the 'role' string in an array for the 'roles' field
     setUser({
       id: "1",
       name,
       email,
       roles: [role],
     });
+    // ✅ Navigate to the user profile route after a successful login
+    navigate("/profile"); 
   };
-
-  console.log(login());
-  
-
-  console.log("Rendering Login component");
 
   return (
     <div>
@@ -41,7 +36,7 @@ export default function Login() {
           placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          />
+        />
         <select
           className="border p-2 mb-4 w-full"
           value={role}
@@ -49,7 +44,6 @@ export default function Login() {
         >
           <option value="User">User</option>
           <option value="Admin">Admin</option>
-       
         </select>
         <button
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
