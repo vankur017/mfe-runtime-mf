@@ -1,4 +1,4 @@
-// apps/auth-app/webpack.config.js
+// apps/mfe-host/webpack.config.js
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
@@ -14,19 +14,22 @@ module.exports = {
     publicPath: "auto",
     filename: isDev ? "[name].js" : "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
-    clean: true,
+    clean: true
   },
+
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
-      "@mfeshared/store": path.resolve(__dirname, "../../packages/mfeshared/store/src"),
-    },
+      "@mfeshared/store": path.resolve(__dirname, "../../packages/mfeshared/store/src")
+    }
   },
+
   devServer: {
-    port: 3001, // Auth app will run on port 3001
+    port: 3000,
     historyApiFallback: true,
-    hot: true,
+    hot: true
   },
+
   module: {
     rules: [
       {
@@ -39,38 +42,38 @@ module.exports = {
               presets: [
                 ["@babel/preset-env", { targets: "defaults" }],
                 ["@babel/preset-react", { runtime: "automatic" }],
-                "@babel/preset-typescript",
+                "@babel/preset-typescript"
               ],
-              plugins: [],
-            },
-          },
-        ],
+              plugins: []
+            }
+          }
+        ]
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
-      },
-    ],
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader", "postcss-loader"] // Removed postcss-loader
+      }
+    ]
   },
+  
   plugins: [
     new ModuleFederationPlugin({
-      name: "auth", // The name of this micro-frontend
+      name: "host",
       filename: "remoteEntry.js",
-      exposes: {
-        // Expose the components and manifest for the host to consume
-        "./Login": "./src/components/Login.tsx",
-        "./UserProfile": "./src/components/UserProfile.tsx",
-        "./manifest": "./src/remote/manifest.ts",
+      remotes: {
+        // The host's webpack only needs to know the remote's name and its entry file.
+        // The App.tsx file handles dynamic loading of individual components.
+        auth: `auth@${isDev ? "http://localhost:3001" : "https://your-deployed-auth-url"}/remoteEntry.js`, 
       },
       shared: {
         react: { singleton: true, requiredVersion: false, eager: true },
         "react-dom": { singleton: true, requiredVersion: false, eager: true },
         zustand: { singleton: true, requiredVersion: false, eager: true },
         "react-router-dom": { singleton: true, requiredVersion: false, eager: true },
-        "@mfeshared/store": { singleton: true, requiredVersion: false, eager: true },
-      },
+        "@mfeshared/store": { singleton: true, requiredVersion: false, eager: true }
+      }
     }),
     new HtmlWebpackPlugin({ template: "./public/index.html" }),
-    new ForkTsCheckerWebpackPlugin(),
-  ].filter(Boolean),
+    new ForkTsCheckerWebpackPlugin()
+  ].filter(Boolean)
 };

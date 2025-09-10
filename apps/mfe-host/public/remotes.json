@@ -1,5 +1,3 @@
 {
-  "auth": "http://localhost:3001/remoteEntry.js",
-  "booking": "http://localhost:3002/remoteEntry.js",
-  "reporting": "http://localhost:3003/remoteEntry.js"
+  "auth": "http://localhost:3001/remoteEntry.js"
 }

@@ -1,62 +1,15 @@
 /* packages/auth-app/src/styles.css */
-
-.login-container,
-.user-profile-container {
-  max-width: 28rem; /* Equivalent to max-w-md */
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1.5rem; /* Equivalent to p-6 */
-  background-color: #fff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Equivalent to shadow */
-  border-radius: 0.25rem; /* Equivalent to rounded */
-}
-
-.login-heading,
-.user-profile-heading {
-  font-size: 1.25rem; /* Equivalent to text-xl */
-  font-weight: 700; /* Equivalent to font-bold */
-  margin-bottom: 1rem; /* Equivalent to mb-4 */
-}
-
-.form-input,
-.form-select {
-  border-width: 1px; /* Equivalent to border */
-  border-color: #e2e8f0; /* a standard gray */
-  padding: 0.5rem; /* Equivalent to p-2 */
-  margin-bottom: 0.5rem; /* Equivalent to mb-2 */
-  width: 100%; /* Equivalent to w-full */
-}
-
-.form-select {
-  margin-bottom: 1rem; /* Equivalent to mb-4 */
-}
-
-.btn {
-  padding-left: 1rem; /* Equivalent to px-4 */
-  padding-right: 1rem;
-  padding-top: 0.5rem; /* Equivalent to py-2 */
-  padding-bottom: 0.5rem;
-  border-radius: 0.25rem; /* Equivalent to rounded */
-  color: #fff;
-  font-weight: 500; /* or adjust as needed */
-  transition: background-color 0.3s ease;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background-color: #2563eb; /* Equivalent to bg-blue-600 */
-}
-
-.btn-primary:hover {
-  background-color: #1d4ed8; /* Equivalent to hover:bg-blue-700 */
-}
-
-.btn-danger {
-  margin-top: 1rem; /* Equivalent to mt-4 */
-  background-color: #ef4444; /* Equivalent to bg-red-500 */
-}
-
-.btn-danger:hover {
-  background-color: #dc2626; /* Equivalent to hover:bg-red-600 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/*  */
+.maindiv{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #181818, #3b82f6);
+  padding: 1rem;
+  background-color: #181818;
+  
 }

@@ -11,14 +11,13 @@
   "scripts": {
     "start:host": "cd apps/mfe-host && npm run start",
     "start:auth": "cd packages/auth-app && npm run start"
-  }, 
-
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-  "react": "18.3.1",
-  "react-dom": "18.3.1",
-  "zustand": "5.0.8"
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "zustand": "5.0.8"
   }
 }
